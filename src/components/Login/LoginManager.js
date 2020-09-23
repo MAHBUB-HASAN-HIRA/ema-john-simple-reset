@@ -43,6 +43,23 @@ export const handleFbSignIn = ()=> {
         .catch(error =>alert(error.message));
     };
 
+export const handleGithubSignIn = () => {
+        const githubProvider = new firebase.auth.GithubAuthProvider();
+           return firebase.auth().signInWithPopup(githubProvider)
+            .then(result => {
+                const {displayName, email, photoURL} = result.user;
+                const signInUser ={
+                    isSignIn: true,
+                    name: displayName,
+                    email: email,
+                    photoURL: photoURL,
+                    success: true,
+            };
+            return signInUser;
+        })
+        .catch(error =>{ error && alert(error.message)});
+    }
+
 export const handleSignOut = () => {
         return firebase.auth().signOut()
         .then(res =>  {

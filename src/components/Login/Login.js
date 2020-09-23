@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../App';
 // import { useHistory, useLocation } from 'react-router-dom';
-import { handleGoogleSignIn, handleFbSignIn, handleSignOut, initializedLogInFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
+import { handleGoogleSignIn, handleFbSignIn, handleGithubSignIn, handleSignOut, initializedLogInFramework, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './LoginManager';
 
 const Login = () => {
 
@@ -40,6 +40,12 @@ const Login = () => {
         })
     }
 
+    const githubSignIn = () => {
+        handleGithubSignIn()
+        .then(res => {
+            handleResponse(res, true)
+        })
+    }
 
     const googleSignOut = () => {
         handleSignOut()
@@ -55,6 +61,12 @@ const Login = () => {
         })
     }
 
+    const githubSignOut = () => {
+        handleSignOut()
+            .then(res =>{
+                handleResponse(res, false)
+        })
+    }
 
     const handleBlur = (e) =>{
         let isFieldValid = true;
@@ -110,6 +122,12 @@ const Login = () => {
                  <button onClick={fbSignIn}>Sign in with Facebook</button>
              }
              <br/><br/>
+            {
+                user.isSignIn ?
+                <button onClick={githubSignOut}>Sign Out</button>:
+                <button onClick={githubSignIn}>Sign In With Github</button>
+            }
+            <br/><br/>
             {
                 user.isSignIn ?
                 <button onClick={googleSignOut}>Sign Out</button>:

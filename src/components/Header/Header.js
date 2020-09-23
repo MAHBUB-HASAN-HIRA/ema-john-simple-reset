@@ -7,15 +7,24 @@ const Header = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     return (
         <div className='header'>
-            <img src={logo} alt="ema-john"/>
+            <img className='emaJohn_logo' src={logo} alt="ema-john"/>
             <nav>
                 <Link className='link_item' to="/shop">Shop</Link>
                 <Link className='link_item' to="/review">Order review</Link>
                 <Link className='link_item' to="/inventory">Manage Inventory</Link>
+                
                 {
                     (loggedInUser.displayName || loggedInUser.name) && <span className='link_item'>Welcome <strong>{loggedInUser.displayName || loggedInUser.name}</strong></span>
                 }
-                <Link className='link_item' onClick={() => setLoggedInUser({})}>Sign Out </Link>
+                {
+                    loggedInUser.isSignIn && <img className='user_img' src={loggedInUser.photoURL} alt=""/>
+                }
+                 { 
+                    loggedInUser.isSignIn ?  
+                        <Link className='link_item' onClick={() => setLoggedInUser({})} to='/'>Log Out</Link>:
+                        <Link className='link_item' to='/login'>Log In</Link>
+                }
+                
             </nav>
         </div>
     );

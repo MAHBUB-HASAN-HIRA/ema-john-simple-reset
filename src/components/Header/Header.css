@@ -1,12 +1,12 @@
-.header img{
+.header .emaJohn_logo{
     height: 80px;
-    margin-left: auto;
+    margin: 15px  auto ;
 }
 .header{
     text-align: center;
 }
 .header nav{
-    line-height: 40px;
+    line-height: 50px;
     background-color: black;
     font-size: 20px;
     text-align: start;
@@ -21,4 +21,10 @@ nav .link_item{
 }
 nav .link_item:hover{
     background-color: gray;
+}
+nav .user_img{
+    height: 40px !important;
+    border-radius: 50%;
+    margin-left: 40px !important;
+    margin-bottom: -12px;
 }

@@ -116,14 +116,6 @@ const Login = () => {
                 <button onClick={googleSignIn}>Sign In With Google</button>
             }
             <br/><br/>
-            {
-                user.isSignIn && 
-                <div className='signIn_user_details'>
-                    <h2>Name: {user.name}</h2>
-                    <h4>Email: {user.email}</h4>
-                    <img src={user.photoURL} alt=""/>
-                </div>
-            }
             <div>
                 <form onSubmit={handleSubmit}>
                     <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser" id=""/>

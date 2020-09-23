@@ -25,14 +25,7 @@ const Login = () => {
      const location = useLocation();
      let { from } = location.state || { from: { pathname: "/" } };
 
-     const handleResponse = (res, redirect) =>{
-        setUser(res);
-        setLoggedInUser(res);
-       if(redirect){
-        history.replace(from);
-       }
-    }
-
+ 
     const googleSignIn = () => {
         handleGoogleSignIn()
         .then(res => {
@@ -48,14 +41,19 @@ const Login = () => {
     }
 
 
-    const signOut = () => {
+    const googleSignOut = () => {
         handleSignOut()
             .then(res =>{
                 handleResponse(res, false)
         })
     }
 
-
+    const fbSignOut = () =>{
+            handleSignOut()
+            .then(res =>{
+                handleResponse(res, false)
+        })
+    }
 
 
     const handleBlur = (e) =>{
@@ -94,17 +92,30 @@ const Login = () => {
 
     }
 
+    const handleResponse = (res, redirect) =>{
+        setUser(res);
+        setLoggedInUser(res);
+       if(redirect){
+        history.replace(from);
+       }
+    }
 
 
     return (
         <div style={{textAlign:'center'}}>
             <br/>
-             <button onClick={fbSignIn}>Sign in with Facebook</button>
+             {
+                 user.isSignIn ? 
+                 <button onClick={fbSignOut}>Sign Out</button>:
+                 <button onClick={fbSignIn}>Sign in with Facebook</button>
+             }
+             <br/><br/>
             {
                 user.isSignIn ?
-                <button onClick={signOut}>Sign Out</button>:
+                <button onClick={googleSignOut}>Sign Out</button>:
                 <button onClick={googleSignIn}>Sign In With Google</button>
             }
+            <br/><br/>
             {
                 user.isSignIn && 
                 <div className='signIn_user_details'>

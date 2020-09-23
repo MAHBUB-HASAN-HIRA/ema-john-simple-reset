@@ -1,7 +1,9 @@
-.ship-form{
-    margin:30px 100px;
+.shipment_form {
+    text-align:center;
+
 }
 .ship-form input{
+    margin: 0 auto;
     display: block;
     margin-top: 30px;
     padding: 5px;

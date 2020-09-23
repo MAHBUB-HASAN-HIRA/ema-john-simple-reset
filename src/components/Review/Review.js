@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import fakeData from '../../fakeData';
 import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
-import './Review.css';
-import thankyouImg from '../../images/giphy.gif'; 
+import './Review.css'; 
 import { useHistory } from 'react-router-dom';
 
 const Review = () => {
     const [cart, setCart] = useState([])
-    const [orderPlace, setOrderPlace] = useState(false)
     const history = useHistory()
     
-
     const handleProceedOrder =() => {
         history.push('/shipment')
     }
@@ -36,26 +33,20 @@ const Review = () => {
         removeFromDatabaseCart(productKey);
     }
 
-    let thankyou;
-    if(orderPlace){
-        thankyou = <img src={thankyouImg} alt=""/>
-    }
-
     return (
-        <div className='shop-container'>
-            <div className="product-container">
-                {
-                    cart.map(pd => <ReviewItem removedProduct={removedProduct} key={pd.key} product={pd}></ReviewItem>)
-                }
-                
-                {thankyou}
+            <div className='shop-container'>
+                <div className="product-container">
+                    {
+                        cart.map(pd => <ReviewItem removedProduct={removedProduct} key={pd.key} product={pd}></ReviewItem>)
+                    }
+                    
+                </div>
+                <div className='cart-container'>
+                    <Cart cart={cart}>
+                        <button onClick={handleProceedOrder} className='add_cart_btn'>Proceed CheckOut</button>
+                    </Cart>
+                </div> 
             </div>
-            <div className='cart-container'>
-                <Cart cart={cart}>
-                    <button onClick={handleProceedOrder} className='add_cart_btn'>Proceed CheckOut</button>
-                </Cart>
-            </div> 
-        </div>
     );
 };
 

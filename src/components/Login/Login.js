@@ -29,7 +29,7 @@ const Login = () => {
     const googleSignIn = () => {
         handleGoogleSignIn()
         .then(res => {
-            handleResponse(res, true)
+            handleResponse(res, true);
         })
     }
 
@@ -106,6 +106,9 @@ const Login = () => {
 
     const handleResponse = (res, redirect) =>{
         setUser(res);
+        if(res.error){
+            alert(res.error);
+        }
         setLoggedInUser(res);
        if(redirect){
         history.replace(from);

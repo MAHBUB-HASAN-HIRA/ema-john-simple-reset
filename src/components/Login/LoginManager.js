@@ -22,7 +22,14 @@ export const handleGoogleSignIn = () => {
             };
             return signInUser;
         })
-        .catch(error =>{ error && alert(error.message)});
+        .catch(error => {
+            const newUserInfo = {};
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            newUserInfo.isSignIn = false;
+            alert(error.message)
+            return newUserInfo;
+        });
     }
 
 export const handleFbSignIn = ()=> {
@@ -40,7 +47,13 @@ export const handleFbSignIn = ()=> {
         return signInUser;
 
         })
-        .catch(error =>alert(error.message));
+        .catch(error => {
+            const newUserInfo = {};
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            newUserInfo.isSignIn = false;
+            return newUserInfo;
+        });
     };
 
 export const handleGithubSignIn = () => {
@@ -57,7 +70,14 @@ export const handleGithubSignIn = () => {
             };
             return signInUser;
         })
-        .catch(error =>{ error && alert(error.message)});
+        .catch(error => {
+            const newUserInfo = {};
+            newUserInfo.error = error.message;
+            newUserInfo.success = false;
+            newUserInfo.isSignIn = false;
+            alert(error.message)
+            return newUserInfo;
+        });
     }
 
 export const handleSignOut = () => {
@@ -76,6 +96,7 @@ export const createUserWithEmailAndPassword = (name, email, password) => {
     .then(res => {
         const newUserInfo = res.user;
         newUserInfo.error = '';
+        newUserInfo.isSignIn = true;
         newUserInfo.success = true;
         newUserInfo.name = name;
         updateUser(name, res.photoURL);
@@ -85,7 +106,8 @@ export const createUserWithEmailAndPassword = (name, email, password) => {
         const newUserInfo = {};
         newUserInfo.error = error.message;
         newUserInfo.success = false;
-        alert(error.message);
+        newUserInfo.isSignIn = false;
+        alert(error.message)
         return newUserInfo;
     });
     }
@@ -98,6 +120,7 @@ export const signInWithEmailAndPassword = (email, password) => {
                 newUserInfo.password = '';
                 newUserInfo.error = '';
                 newUserInfo.success = true;
+                newUserInfo.isSignIn = true;
                 return newUserInfo;
                 
             })
@@ -105,7 +128,8 @@ export const signInWithEmailAndPassword = (email, password) => {
                 const newUserInfo = {};
                 newUserInfo.error = error.message;
                 newUserInfo.success = false;
-                alert(error.message);
+                newUserInfo.isSignIn = false;
+                alert(error.message)
                 return newUserInfo;
             });
     }

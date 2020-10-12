@@ -12,7 +12,7 @@ const Shop = () => {
     const [cart, setCart] = useState([]);
 
     useEffect(() =>{
-        fetch('http://localhost:4200/products')
+        fetch('https://murmuring-temple-61690.herokuapp.com/products')
         .then(res => res.json())
         .then(data => setProducts(data));
     }, [])
@@ -21,7 +21,7 @@ const Shop = () => {
         const savedCart = getDatabaseCart();
         const productsKey = Object.keys(savedCart);
 
-        fetch('http://localhost:4200/productsByKeys',{
+        fetch('https://murmuring-temple-61690.herokuapp.com/productsByKeys',{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(productsKey)

@@ -17,7 +17,7 @@ const Review = () => {
         const savedCart = getDatabaseCart();
         const productsKey = Object.keys(savedCart);
 
-        fetch('http://localhost:4200/productsByKeys',{
+        fetch('https://murmuring-temple-61690.herokuapp.com/productsByKeys',{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(productsKey)

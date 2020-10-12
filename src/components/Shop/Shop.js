@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import fakeData from '../../fakeData';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import './Shop.css';
@@ -9,20 +8,25 @@ import { Link } from 'react-router-dom';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 
 const Shop = () => {
-    const first10 = fakeData.slice(0,10);
-    const [products, setProducts] = useState(first10);
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
+
+    useEffect(() =>{
+        fetch('http://localhost:4200/products')
+        .then(res => res.json())
+        .then(data => setProducts(data));
+    }, [])
 
     useEffect(() =>{
         const savedCart = getDatabaseCart();
         const productsKey = Object.keys(savedCart);
 
-        const cartProducts = productsKey.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
-        })
-        setCart(cartProducts);
+        fetch('http://localhost:4200/productsByKeys',{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(productsKey)
+        }).then(res => res.json())
+        .then(data => setCart(data));
     },[])
 
     const handleAddProduct = product => {

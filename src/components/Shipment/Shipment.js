@@ -3,17 +3,34 @@ import { useForm } from 'react-hook-form';
 import { UserContext } from '../../App';
 import './Shipment.css'
 import thankyouImg from '../../images/giphy.gif';
+import { getDatabaseCart, processOrder } from '../../utilities/databaseManager';
 
 const Shipment = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const [orderPlace, setOrderPlace] = useState(false)
 
     const { register, handleSubmit, watch, errors } = useForm();
-    const onSubmit = data => {setOrderPlace(true)};
-  
-  // const handleThankYou = () =>{
-      
-  // }
+    const onSubmit = data => {
+      setOrderPlace(true);
+      const savedCart = getDatabaseCart()
+      const orderDetail = {...loggedInUser, products: savedCart, shipment: data, orderTime: new Date()};
+
+
+      fetch('http://localhost:4200/addOrder', {
+        method:'POST',
+        headers:{'Content-Type': 'application/json'},
+        body:JSON.stringify(orderDetail)
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data){
+            alert('Order SuccessFully');
+            processOrder();
+          }
+    });
+
+  }
+
 
   let thankyou;
   if(orderPlace){

@@ -32,7 +32,7 @@ const Product = props => {
                 <div className='feature'>
                     <h4>Feature</h4>
                     <ul>
-                        {
+                        { features &&
                             features.map(feature => <li>{feature.description}:
                             <strong>{feature.value}</strong></li>)
                         }
